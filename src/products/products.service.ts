@@ -17,9 +17,7 @@ export class ProductsService {
   }
 
   private async fetchData(): Promise<Product[]> {
-    const response = await fetch(
-      'https://mockend.com/juunegreiros/BE-test-api/products',
-    );
+    const response = await fetch(`${process.env.API_URL}/products`);
     return await response.json();
   }
 }
