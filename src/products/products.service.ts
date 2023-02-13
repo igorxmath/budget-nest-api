@@ -1,11 +1,25 @@
 import { Injectable } from '@nestjs/common';
 
+type Product = {
+  id: number;
+  name: string;
+  price: number;
+};
 @Injectable()
 export class ProductsService {
-  findAll() {
-    return 'This action returns all products';
+  async findAll(): Promise<Product[]> {
+    return await this.fetchData();
   }
-  findById(id: string) {
-    return `This action returns a #${id} product`;
+
+  async findById(id: number): Promise<Product> {
+    const data = await this.fetchData();
+    return data.find((product: Product) => product.id === id);
+  }
+
+  private async fetchData(): Promise<Product[]> {
+    const response = await fetch(
+      'https://mockend.com/juunegreiros/BE-test-api/products',
+    );
+    return await response.json();
   }
 }
