@@ -18,8 +18,8 @@ export class UsersController {
   @Post(':id/budget')
   getUserBudget(
     @Param('id') id: number,
-    @Body() { products }: { products: Array<number> },
+    @Body() { products_id }: { products_id: Array<number> },
   ) {
-    return this.usersService.setBudget(id, products);
+    return this.usersService.setBudget(id, products_id);
   }
 }
