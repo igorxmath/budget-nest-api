@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { ProductsService } from 'src/products/products.service';
 
 type User = {
@@ -15,25 +15,53 @@ export class UsersService {
   }
 
   async findById(id: number): Promise<User> {
-    return this.fetchData().then((data: User[]) =>
-      data.find((user: User) => user.id === id),
-    );
+    const data = await this.fetchData();
+    const user = data.find((user: User) => user.id === id);
+    if (user) {
+      return user;
+    } else {
+      throw new HttpException('User not found', 404);
+    }
   }
 
   async setBudget(id: number, productsId: Array<number>) {
+    if (productsId.length === 0) {
+      throw new HttpException('No products provided', 400);
+    }
+
     const listOfProducts = await this.productsService.findAll();
     const user = await this.findById(id);
-    const products = listOfProducts.filter((product) =>
-      productsId.includes(product.id),
+
+    const productsMap = new Map(
+      listOfProducts.map((product) => [product.id, product]),
     );
-    const total = products.reduce((acc, product) => acc + product.price, 0);
-    const tax = total * (1 + user.tax / 100);
-    const roundedTax = Math.round(tax * 100) / 100;
-    return { total, tax: roundedTax };
+
+    const products = productsId.map((id) => {
+      const product = productsMap.get(id);
+      if (!product) {
+        throw new HttpException('Product not found', 404);
+      }
+      return product;
+    });
+
+    const totalPrice = products.reduce(
+      (total, product) => total + product.price * (1 + user.tax / 100),
+      0,
+    );
+    const roundedTotalPrice = Math.round(totalPrice * 100) / 100;
+
+    return { totalPrice: roundedTotalPrice };
   }
 
   private async fetchData(): Promise<User[]> {
-    const response = await fetch(`${process.env.API_URL}/users`);
-    return await response.json();
+    try {
+      const response = await fetch(`${process.env.API_URL}/users`);
+      if (!response.ok) {
+        throw new HttpException(response.statusText, response.status);
+      }
+      return await response.json();
+    } catch (error) {
+      throw new HttpException(error, 500);
+    }
   }
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 
 type Product = {
   id: number;
@@ -13,11 +13,23 @@ export class ProductsService {
 
   async findById(id: number): Promise<Product> {
     const data = await this.fetchData();
-    return data.find((product: Product) => product.id === id);
+    const product = data.find((product: Product) => product.id === id);
+    if (product) {
+      return product;
+    } else {
+      throw new HttpException('Product not found', 404);
+    }
   }
 
   private async fetchData(): Promise<Product[]> {
-    const response = await fetch(`${process.env.API_URL}/products`);
-    return await response.json();
+    try {
+      const response = await fetch(`${process.env.API_URL}/products`);
+      if (!response.ok) {
+        throw new HttpException(response.statusText, response.status);
+      }
+      return await response.json();
+    } catch (error) {
+      throw new HttpException('fetch failed', 500);
+    }
   }
 }
