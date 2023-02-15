@@ -1,5 +1,5 @@
 import { HttpException, Injectable } from '@nestjs/common';
-import { ProductsService } from 'src/products/products.service';
+import { ProductsService } from '../products/products.service';
 
 type User = {
   id: number;
