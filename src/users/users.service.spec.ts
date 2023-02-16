@@ -50,7 +50,7 @@ describe('UsersService', () => {
 
       const result = await usersService.setBudget(1, [1, 2]);
 
-      expect(result.totalPrice).toBeCloseTo(53.7);
+      expect(result.total_price).toBeCloseTo(53.7);
     });
 
     it('should throw an HTTP exception when a product is not found', async () => {

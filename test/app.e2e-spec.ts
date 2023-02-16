@@ -55,7 +55,7 @@ describe('UsersController (e2e)', () => {
         .post('/users/1/budget')
         .send({ products_id: [1, 2] });
       expect(response.status).toBe(201);
-      expect(response.body).toHaveProperty('totalPrice', 16790.2);
+      expect(response.body).toHaveProperty('total_price', 16790.2);
     });
 
     it('POST returns 404 for non-existing user', async () => {
