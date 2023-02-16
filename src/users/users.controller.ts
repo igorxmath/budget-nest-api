@@ -1,5 +1,6 @@
 import { Controller, Get, Post, Param, Body } from '@nestjs/common';
 import { UsersService } from './users.service';
+import { SetBudgetDto } from './dto/set-budget.dto';
 
 @Controller('users')
 export class UsersController {
@@ -18,7 +19,7 @@ export class UsersController {
   @Post(':id/budget')
   getUserBudget(
     @Param('id') id: number,
-    @Body() { products_id }: { products_id: Array<number> },
+    @Body() { products_id }: SetBudgetDto,
   ) {
     return this.usersService.setBudget(id, products_id);
   }

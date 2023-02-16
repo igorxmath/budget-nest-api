@@ -50,7 +50,7 @@ export class UsersService {
     );
     const roundedTotalPrice = Math.round(totalPrice * 100) / 100;
 
-    return { totalPrice: roundedTotalPrice };
+    return { total_price: roundedTotalPrice };
   }
 
   private async fetchData(): Promise<User[]> {
