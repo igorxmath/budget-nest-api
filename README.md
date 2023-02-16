@@ -38,6 +38,13 @@ BudgetBuddy was built using the following technologies:
     - Use the API at http://localhost:3000
     - Use a tool like [Postman](https://www.postman.com/) to test the API endpoints.
 
+## Docker
+You can run the API in a Docker container using the following command:
+```bash
+docker run -p 3000:3000 -d --name budgetbuddy -e API_URL=https://example.com/api igormath/budget-nest-api
+```
+Replace https://example.com/api with the URL of the external API.
+
 ## API Documentation
 The following endpoints are available:
 
