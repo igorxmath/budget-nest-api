@@ -16,6 +16,8 @@ BudgetBuddy was built using the following technologies:
 - TypeScript - A typed superset of JavaScript that compiles to plain JavaScript
 - Jest - A popular testing framework for JavaScript projects, with built-in support for mocking, assertions, and code coverage analysis
 - Supertest - A high-level HTTP testing library for Node.js applications
+- Eslint - A popular linting tool for JavaScript projects
+- Prettier - An opinionated code formatter for JavaScript projects
 
 ## Installing
 1. Clone the repository and navigate to the project directory.
