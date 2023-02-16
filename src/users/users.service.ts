@@ -24,11 +24,10 @@ export class UsersService {
     }
   }
 
-  async setBudget(id: number, productsId: Array<number>) {
-    if (productsId.length === 0) {
-      throw new HttpException('No products provided', 400);
-    }
-
+  async setBudget(
+    id: number,
+    productsId: Array<number>,
+  ): Promise<{ total_price: number }> {
     const listOfProducts = await this.productsService.findAll();
     const user = await this.findById(id);
 
@@ -61,7 +60,7 @@ export class UsersService {
       }
       return await response.json();
     } catch (error) {
-      throw new HttpException(error, 500);
+      throw new HttpException('fetch failed', 500);
     }
   }
 }
