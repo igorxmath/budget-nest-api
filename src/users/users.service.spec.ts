@@ -3,6 +3,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { UsersService } from './users.service';
 import { ProductsService } from '../products/products.service';
 import { ConfigModule } from '@nestjs/config';
+import { ApiService } from '../http/api.service';
 
 describe('UsersService', () => {
   let usersService: UsersService;
@@ -11,7 +12,7 @@ describe('UsersService', () => {
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [ConfigModule.forRoot()],
-      providers: [UsersService, ProductsService],
+      providers: [UsersService, ProductsService, ApiService],
     }).compile();
 
     usersService = module.get<UsersService>(UsersService);

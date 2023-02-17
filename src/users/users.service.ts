@@ -1,5 +1,6 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { ProductsService } from '../products/products.service';
+import { ApiService } from '../http/api.service';
 
 type User = {
   id: number;
@@ -8,14 +9,17 @@ type User = {
 };
 @Injectable()
 export class UsersService {
-  constructor(private readonly productsService: ProductsService) {}
+  constructor(
+    private readonly productsService: ProductsService,
+    private readonly apiService: ApiService,
+  ) {}
 
   async findAll(): Promise<User[]> {
-    return await this.fetchData();
+    return await this.apiService.fetchData(`${process.env.API_URL}/users`);
   }
 
   async findById(id: number): Promise<User> {
-    const data = await this.fetchData();
+    const data = await this.findAll();
     const user = data.find((user: User) => user.id === id);
     if (user) {
       return user;
@@ -50,17 +54,5 @@ export class UsersService {
     const roundedTotalPrice = Math.round(totalPrice * 100) / 100;
 
     return { total_price: roundedTotalPrice };
-  }
-
-  private async fetchData(): Promise<User[]> {
-    try {
-      const response = await fetch(`${process.env.API_URL}/users`);
-      if (!response.ok) {
-        throw new HttpException(response.statusText, response.status);
-      }
-      return await response.json();
-    } catch (error) {
-      throw new HttpException('fetch failed', 500);
-    }
   }
 }
