@@ -1,5 +1,13 @@
 
 # BudgetBuddy
+<p align="center">
+    <img alt="status" src="https://img.shields.io/badge/status-em%20desenvolvimento-red?style=flat-square">
+    <a href="">
+    <img alt="GitHub Workflow Status" src="https://img.shields.io/github/actions/workflow/status/igorxmath/budget-nest-api/nodejs.yml?style=flat-square"></a>
+    <img alt="node-current (scoped)" src="https://img.shields.io/node/v/@nestjs/cli?style=flat-square">
+    <img alt="Libraries.io dependency status for latest release, scoped npm package" src="https://img.shields.io/librariesio/release/npm/@nest/core?style=flat-square">
+</p>
+
 > BudgetBuddy is a web application built using Nest.js, a powerful Node.js framework for building scalable and efficient server-side applications. The app provides a REST API that allows users to manage a list of products and track their budgets.
 
 ## Features
