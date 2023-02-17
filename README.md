@@ -29,9 +29,9 @@ BudgetBuddy was built using the following technologies:
 
 3. Next, create a .env file in the root of the project and add the following:
     ```env
-    API_URL=https://example.com/api
+    API_URL=https://mockend.com/juunegreiros/BE-test-api
     ```
-    Replace https://example.com/api with the URL of the external API.
+    Replace https://mockend.com/juunegreiros/BE-test-api with the URL of the external API.
 
 4. Run the development server
     ```bash
@@ -43,9 +43,9 @@ BudgetBuddy was built using the following technologies:
 ## Docker
 You can run the API in a Docker container using the following command:
 ```bash
-docker run -p 3000:3000 -d --name budgetbuddy -e API_URL=https://example.com/api igormath/budget-nest-api
+docker run -p 3000:3000 -d --name budgetbuddy -e API_URL=https://mockend.com/juunegreiros/BE-test-api igormath/budget-nest-api
 ```
-Replace https://example.com/api with the URL of the external API.
+Replace https://mockend.com/juunegreiros/BE-test-api with the URL of the external API.
 
 ## API Documentation
 The following endpoints are available:
