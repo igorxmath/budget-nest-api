@@ -49,12 +49,19 @@ describe('UsersService', () => {
         { id: 2, name: 'Product 2', price: 20 },
       ]);
 
+      jest
+        .spyOn(usersService, 'findById')
+        .mockResolvedValue({ id: 1, name: 'Alice', tax: 10 });
+
       const result = await usersService.setBudget(1, [1, 2]);
 
-      expect(result.total_price).toBeCloseTo(53.7);
+      expect(result.total_price).toBeCloseTo(33);
     });
 
     it('should throw an HTTP exception when a product is not found', async () => {
+      jest
+        .spyOn(usersService, 'findById')
+        .mockResolvedValue({ id: 1, name: 'Alice', tax: 10 });
       jest
         .spyOn(productsService, 'findAll')
         .mockResolvedValue([{ id: 1, name: 'Product 1', price: 10 }]);
